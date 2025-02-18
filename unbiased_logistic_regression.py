@@ -62,7 +62,7 @@ class PlattScaledLogisticRegression(ScaledLogisticRegression):
     self.fit_intercept = fit_intercept
     self.sm = sklearn.linear_model.LogisticRegression(
         fit_intercept=fit_intercept,
-        penalty="none",
+        penalty=None,
         solver="newton-cg",
         warm_start=False)
 
@@ -87,7 +87,7 @@ class PlattScaledLogisticRegression(ScaledLogisticRegression):
     # Fit model for outcome using LOO logit estimates as feature. Coefficient on
     # feature is scaling to recalibrate model.
     cm = sklearn.linear_model.LogisticRegression(
-        penalty="none", fit_intercept=self.fit_intercept)
+        penalty=None, fit_intercept=self.fit_intercept)
     cm.fit(features.reshape(-1, 1), outcome.reshape(-1), weights)
     self.coef_ = self.sm.coef_ * cm.coef_
     if self.fit_intercept:
@@ -219,7 +219,7 @@ class LogisticRegressionMLE(LogisticRegressionInference):
     self.fit_intercept = fit_intercept
     self.sm = sklearn.linear_model.LogisticRegression(
         fit_intercept=fit_intercept,
-        penalty="none",
+        penalty=None,
         solver="newton-cg",
         warm_start=False)
 
@@ -271,7 +271,7 @@ class LogisticRegressionPercBoot(LogisticRegressionInference):
     self.fit_intercept = fit_intercept
     self.sm = sklearn.linear_model.LogisticRegression(
         fit_intercept=fit_intercept,
-        penalty="none",
+        penalty=None,
         solver="newton-cg",
         warm_start=False)
     self.num_boot = num_boot
@@ -343,7 +343,7 @@ class UnbiasedLogisticRegression(LogisticRegressionInference):
 
     self.sm = sklearn.linear_model.LogisticRegression(
         fit_intercept=fit_intercept,
-        penalty="none",
+        penalty=None,
         solver="newton-cg",
         warm_start=False)
 
