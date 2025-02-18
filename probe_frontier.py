@@ -57,15 +57,15 @@ class ProbeFrontierLogisticRegression(
       weights = 1
 
     kappa = float(features.shape[1]) / features.shape[0]
-    gamma_hat = self.estimate_gamma(features, outcome)
+    self.gamma_hat = self.estimate_gamma(features, outcome)  # 保存 gamma_hat
 
-    self.alpha, _, sigma, _ = asymp_system_solve.correction_factors(
-        kappa, None, gamma_hat, 0, use_eta=False)
+    self.alpha, _, self.sigma, _ = asymp_system_solve.correction_factors(
+        kappa, None, self.gamma_hat, 0, use_eta=False)  # 保存 sigma
 
     self.coef_ = self.sm.coef_ / self.alpha
     self.intercept_ = 0
 
-    self._set_coef_cov(features, sigma / np.sqrt(kappa), self.alpha)
+    self._set_coef_cov(features, self.sigma / np.sqrt(kappa), self.alpha)
 
     return self, self.sep_calls
 
